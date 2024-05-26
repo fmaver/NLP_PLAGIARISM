@@ -314,7 +314,7 @@ pip install poetry
 1. Run:
 
     ```bash
-    poetry run python -m template.main
+    poetry run python -m plagiarism.main
     ```
 2. Go to http://localhost:8000/docs to see the API documentation.
 
