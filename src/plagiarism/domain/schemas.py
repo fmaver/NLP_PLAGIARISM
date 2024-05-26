@@ -14,7 +14,7 @@ from typing import Any, Generic, Literal, TypeVar
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from template.utils.formatting import to_camel
+from plagiarism.utils.formatting import to_camel
 
 
 class CamelCaseModel(BaseModel):
@@ -32,15 +32,17 @@ class CamelCaseModel(BaseModel):
     def model_dump(
         self,
         *,
-        mode: Literal["json", "python"] | str = "json",
+        mode: Literal["json", "python"] | str = "python",
         include=None,
         exclude=None,
-        by_alias: bool = True,
-        exclude_unset: bool = True,
+        context: dict[str, Any] | None = None,
+        by_alias: bool = False,
+        exclude_unset: bool = False,
         exclude_defaults: bool = False,
-        exclude_none: bool = True,
+        exclude_none: bool = False,
         round_trip: bool = False,
-        warnings: bool = True,
+        warnings: bool | Literal["none", "warn", "error"] = True,
+        serialize_as_any: bool = False,
     ) -> dict[str, Any]:
         return super().model_dump(
             mode=mode,

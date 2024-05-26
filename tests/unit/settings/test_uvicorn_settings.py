@@ -1,7 +1,7 @@
 """
 Uvicorn settings tests.
 """
-from template.settings.uvicorn_settings import UvicornSettings
+from plagiarism.settings.uvicorn_settings import UvicornSettings
 
 
 class TestUvicornSettings:

@@ -3,8 +3,12 @@ Test suite for API Settings
 """
 import pytest
 
-from template.settings.api_settings import ApplicationSettings, ContactInfo, LicenseInfo
-from template.version import __version__
+from plagiarism.settings.api_settings import (
+    ApplicationSettings,
+    ContactInfo,
+    LicenseInfo,
+)
+from plagiarism.version import __version__
 
 
 class TestAPISettings:

@@ -1,4 +1,6 @@
-"""Application implementation - ASGI."""
+"""
+Application implementation - ASGI.
+"""
 
 import logging
 from contextlib import asynccontextmanager
@@ -6,8 +8,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from template.router import api_router_v1, root_router
-from template.settings.api_settings import ApplicationSettings
+from plagiarism.router import api_router_v1, root_router
+from plagiarism.settings.api_settings import ApplicationSettings
 
 log = logging.getLogger(__name__)
 

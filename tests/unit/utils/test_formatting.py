@@ -1,7 +1,7 @@
 """
 Formatting utilities tests.
 """
-from template.utils.formatting import to_camel
+from plagiarism.utils.formatting import to_camel
 
 
 class TestFormatting:

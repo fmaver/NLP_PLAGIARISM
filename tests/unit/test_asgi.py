@@ -1,7 +1,7 @@
 """
 Test suite for ASGI Application
 """
-from template.asgi import get_application
+from plagiarism.asgi import get_application
 
 
 class TestASGI:

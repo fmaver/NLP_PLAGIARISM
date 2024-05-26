@@ -4,7 +4,7 @@ API Settings
 from pydantic import BaseModel, EmailStr, HttpUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from template.version import __version__
+from plagiarism.version import __version__
 
 
 class LicenseInfo(BaseModel):
@@ -64,11 +64,11 @@ class ApplicationSettings(BaseSettings):
     """
 
     DEBUG: bool = True
-    PROJECT_NAME: str = "Cosmic FastAPI Template"
-    PROJECT_DESCRIPTION: str = "This is a FastAPI template demo."
+    PROJECT_NAME: str = "Plagiarism Detection API"
+    PROJECT_DESCRIPTION: str = "API for detecting plagiarism in documents."
     PROJECT_LICENSE: LicenseInfo | None = LicenseInfo(name="MIT", url="https://mit-license.org/")
     PROJECT_CONTACT: ContactInfo | None = ContactInfo(
-        name="Tom Sanchez", url="https://tomsanchez.com.ar", email="info@tomsanchez.com.ar"
+        name="Francisco Maver", url="https://github.com/fmaver", email="fmaver00@gmail.com"
     )
     VERSION: str = __version__
     DOCS_URL: str = "/docs"
