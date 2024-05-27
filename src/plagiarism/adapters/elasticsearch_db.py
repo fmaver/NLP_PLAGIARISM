@@ -39,8 +39,8 @@ class ElasticsearchConn:
             return "Index created successfully"
         return "Index already exists"
 
-    def index_document(self, index_name: str, doc_id: str, text: str, embedding: list, student_name: str):
-        doc = {"student_name": student_name, "Topic": "Not Provided", "text": text, "vector": embedding}
+    def index_document(self, index_name: str, doc_id: str, text: str, embedding: list, student_name: str, topic: str):
+        doc = {"student_name": student_name, "Topic": topic, "text": text, "vector": embedding}
         self.conn.index(index=index_name, id=doc_id, body=doc)
         return "Document indexed successfully"
 
@@ -49,7 +49,7 @@ class ElasticsearchConn:
         return "Index refreshed successfully"
 
     # search_similar(self, index_name: str, query_text: str, k ) and k might be null
-    def search_similar(self, index_name: str, query_text: str, k: None):
+    def search_similar(self, index_name: str, query_text: str, k=None):
         bert_model = BertModelWrapper()
         query_embedding = bert_model.get_embedding(query_text)
 
