@@ -1,4 +1,4 @@
-FROM python:3.11.4-slim as development_build
+FROM python:3.12.2-slim as development_build
 
 ARG APP_DIR=/app
 
@@ -18,14 +18,17 @@ ENV ENV=${ENV} \
 # Deploy application
 WORKDIR $APP_DIR
 COPY pyproject.toml poetry.lock README.md ${APP_DIR}/
+ADD models ${APP_DIR}/models
 ADD src ${APP_DIR}/src
+
 
 # System dependencies
 RUN pip install --disable-pip-version-check "poetry==$POETRY_VERSION"
+#RUN pip install --no-binary h5py h5py
 
 # Project initialization:
 RUN poetry config virtualenvs.create false \
     && poetry install --only main \
-    && poetry run spacy download es_core_news_lg \
+    && poetry run spacy download es_core_news_lg
 
-CMD ["poetry", "run", "python","-m", "template.main"]
+CMD ["poetry", "run", "python","-m", "plagiarism.main"]
