@@ -16,15 +16,18 @@ class ElasticsearchConn:
         self.port = es_settings.PORT
         self.user = es_settings.USER
         self.password = es_settings.ELASTIC_PASSWORD
-        self.cert_finger = es_settings.CERT_FINGER
+        # self.cert_finger = es_settings.CERT_FINGER
         self.conn = self.get_conn()
 
     def get_conn(self):
         return Elasticsearch(
-            hosts=f"https://{self.host}:{self.port}",
-            ssl_assert_fingerprint=self.cert_finger,
-            basic_auth=(self.user, self.password),
+            hosts=f"https://{self.host}:{self.port}", basic_auth=(self.user, self.password), verify_certs=False
         )
+        # return Elasticsearch(
+        #     hosts=f"https://{self.host}:{self.port}",
+        #     ssl_assert_fingerprint=self.cert_finger,
+        #     basic_auth=(self.user, self.password),
+        # )
 
     def create_index_if_not_exists(self, index_name: str):
         if not self.conn.indices.exists(index=index_name):
@@ -53,7 +56,7 @@ class ElasticsearchConn:
         bert_model = BertModelWrapper()
         query_embedding = bert_model.get_embedding(query_text)
 
-        self.create_index_if_not_exists(index_name)
+        print(self.create_index_if_not_exists(index_name))
 
         script_query = {
             "script_score": {
