@@ -17,24 +17,18 @@ class ElasticsearchSettings(BaseSettings):
         * ELASTICSEARCH_PORT
         * ELASTICSEARCH_USER
         * ELASTICSEARCH_PASSWORD
-        * ELASTICSEARCH_CERT_FINGER
 
     Attributes:
         HOST (str): Elasticsearch host.
         PORT (str): Elasticsearch port.
         USER (str): Elasticsearch user.
         ELASTIC_PASSWORD (str): Elasticsearch password.
-        CERT_FINGER (str): Elasticsearch certificate fingerprint.
     """
 
     HOST: str = "localhost"
     PORT: str = "9200"
     USER: str = "elastic"
     ELASTIC_PASSWORD: str = "elastic"
-    # ELASTIC_PASSWORD: str = "PleaseChangeMe"
-    CERT_FINGER: str = "b5a214346e7426717058d1e8fa45436baddbad4bcd6246a035ef52248f06d2c2"
-    # CERT_FINGER: str =
-    # "ED:FA:E0:34:DD:41:54:80:96:E1:8B:CE:28:01:4F:2A:7F:04:42:9F:C9:5E:20:5A:74:51:E4:84:06:49:94:E5"
 
     model_config = SettingsConfigDict(
         case_sensitive=True,

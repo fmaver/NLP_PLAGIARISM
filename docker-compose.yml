@@ -10,7 +10,6 @@ services:
     environment:
       - discovery.type=single-node
       - ELASTIC_PASSWORD=elastic
-    #configure healthcheck
     healthcheck:
       test: curl --cacert /usr/share/elasticsearch/config/certificates/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
       interval: 30s

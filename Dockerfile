@@ -24,7 +24,6 @@ ADD src ${APP_DIR}/src
 
 # System dependencies
 RUN pip install --disable-pip-version-check "poetry==$POETRY_VERSION"
-#RUN pip install --no-binary h5py h5py
 
 # Project initialization:
 RUN poetry config virtualenvs.create false \
