@@ -72,6 +72,7 @@ class ApplicationSettings(BaseSettings):
     )
     VERSION: str = __version__
     DOCS_URL: str = "/docs"
+    MODEL_PATH: str = "/app/models/topic_predictor_dev.joblib"
 
     # All your additional application configuration should go either here or in
     # separate file in this submodule.

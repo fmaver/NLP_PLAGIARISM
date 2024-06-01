@@ -6,8 +6,10 @@ import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from sklearn.svm import SVC
 from starlette.middleware.cors import CORSMiddleware
 
+from plagiarism.dependencies import get_topic_predictor
 from plagiarism.router import api_router_v1, root_router
 from plagiarism.settings.api_settings import ApplicationSettings
 
@@ -22,6 +24,7 @@ async def on_startup():
         1. https://fastapi.tiangolo.com/advanced/events/#startup-event
     """
     log.debug("Execute FastAPI startup event handler.")
+    get_topic_predictor()
 
 
 async def on_shutdown():
