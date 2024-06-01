@@ -12,7 +12,7 @@ class TopicDetector:
     """
 
     def __init__(self):
-        self.training_csv = "/Users/franciscomaver/PycharmProjects/NLP_PLAGIARISM/data/training.csv"
+        self.training_csv = "/app/data/training.csv"
 
     def get_topic(self, filename: str) -> str:
         """
@@ -31,7 +31,7 @@ class SklearnTopicPredictor:
     Sklearn Topic Predictor.
     """
 
-    def __init__(self, nlp: spacy.Language, download: bool = False, model_path: str = ""):
+    def __init__(self, download: bool = False, model_path: str = ""):
         self.pipeline = Pipeline(
             [
                 ("tfidf", TfidfVectorizer()),

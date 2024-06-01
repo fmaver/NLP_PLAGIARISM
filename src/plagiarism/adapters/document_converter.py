@@ -1,14 +1,19 @@
 """
 This script will be used to analyze the documents and extract the text from them.
 """
-
 import os
+from io import BytesIO
 
 import docx
 from pptx import Presentation
 from PyPDF2 import PdfReader
 
 from plagiarism.adapters import file_handler
+from plagiarism.utils.content_type import (
+    APPLICATION_DOCX,
+    APPLICATION_PDF,
+    APPLICATION_PPT,
+)
 
 
 class DocumentAnalyzer:
@@ -88,6 +93,39 @@ class DocumentAnalyzer:
                 else:
                     output_path = os.path.join(output_folder, file_name.replace(extension, ".txt"))
                     print(f"Text file {output_path} already exists in {output_folder} folder")
+
+    def convert_into_txt(self, file) -> str:
+        if file.content_type == APPLICATION_PDF:
+            bytes_io = BytesIO()
+            bytes_io.write(file.file.read())
+            pdf_reader = PdfReader(bytes_io)
+            text = ""
+            for page in pdf_reader.pages:
+                text += page.extract_text()
+            return text
+
+        if file.content_type == APPLICATION_DOCX:
+            bytes_io = BytesIO()
+            bytes_io.write(file.file.read())
+            doc = docx.Document(bytes_io)
+            doc_text = ""
+            for paragraph in doc.paragraphs:
+                doc_text += paragraph.text + "\n"
+            return doc_text
+
+        if file.content_type == APPLICATION_PPT:
+            ppt_text = ""
+            prs = Presentation(BytesIO(file.file.read()))
+            for slide in prs.slides:
+                for shape in slide.shapes:
+                    if hasattr(shape, "text"):
+                        ppt_text += shape.text
+            return ppt_text
+
+        if file.content_type == "text/plain":
+            return file.file.read().decode("utf-8")
+
+        return "Unsupported file format"
 
 
 class PDFReader:
