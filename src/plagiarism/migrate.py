@@ -16,12 +16,6 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=logging.INFO)
 
-    # Connecting to Elasticsearch
-    es_con = ElasticsearchConn(ElasticsearchSettings())
-    es = es_con.conn
-    logging.info(es.info())
-    logging.info("Connected to Elasticsearch")
-
     landing_files_path = "/app/raw_data/"
     source_zip_path = "/app/data/dataset-nlp-plagio-utn-20240518T005122Z-001.zip"
 
@@ -33,6 +27,12 @@ if __name__ == "__main__":
     landing_txt_path = "/app/data_txt/files/"
     da = DocumentAnalyzer()
     da.convert_files_to_txt(zip_extractor.get_files(), landing_txt_path)
+
+    # Connecting to Elasticsearch
+    es_con = ElasticsearchConn(ElasticsearchSettings())
+    es = es_con.conn
+    logging.info(es.info())
+    logging.info("Connected to Elasticsearch")
 
     # Create an index with a dense_vector field
     index_name = "documents_for_plagiarism"
