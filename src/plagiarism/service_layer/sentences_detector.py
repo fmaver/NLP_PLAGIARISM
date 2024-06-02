@@ -3,11 +3,12 @@ from plagiarism.adapters.elasticsearch_db import ElasticsearchConn
 from plagiarism.domain.events.assignments import SimilarSentences
 from plagiarism.domain.models.bert_model import BertModelWrapper
 from plagiarism.settings.elasticsearch_settings import ElasticsearchSettings
+from plagiarism.settings.index import IndexSettings
 
 
 class SentencesPlagiarized:
     def __init__(self):
-        self.index_name = "documents_for_plagiarism"
+        self.index_name = IndexSettings().INDEX_NAME
         self.sentence_detector = SentenceDetector()
         self.bert_model = BertModelWrapper()
         self.es_con = ElasticsearchConn(ElasticsearchSettings())
@@ -17,7 +18,7 @@ class SentencesPlagiarized:
         Get the plagiarized sentences from the text.
 
         Args:
-            similar_docs: The similar documents.
+            similar_doc: The similar documents.
             text: The text to analyze.
 
         Returns:

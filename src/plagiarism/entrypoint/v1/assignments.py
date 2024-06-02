@@ -13,6 +13,7 @@ from plagiarism.dependencies import TopicPredictorDependency
 from plagiarism.domain.events.assignments import AssignmentStored
 from plagiarism.service_layer.sentences_detector import SentencesPlagiarized
 from plagiarism.settings.elasticsearch_settings import ElasticsearchSettings
+from plagiarism.settings.index import IndexSettings
 from plagiarism.utils import content_type
 
 router = APIRouter(prefix="/assignments")
@@ -40,8 +41,8 @@ def search_plagiarism(
 
     es_con = ElasticsearchConn(ElasticsearchSettings())
     es = es_con.conn
-    # print(es.info())
-    index_name = "documents_for_plagiarism"
+    index = IndexSettings()
+    index_name = index.INDEX_NAME
 
     # checks if the file type is supported
     if file.content_type not in supported_content_types:

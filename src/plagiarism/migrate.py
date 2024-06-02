@@ -8,6 +8,7 @@ from plagiarism.adapters.elasticsearch_db import ElasticsearchConn
 from plagiarism.adapters.zip_extractor import ZipExtractor
 from plagiarism.domain.models.bert_model import BertModelWrapper
 from plagiarism.settings.elasticsearch_settings import ElasticsearchSettings
+from plagiarism.settings.index import IndexSettings
 
 if __name__ == "__main__":
     bert_model = BertModelWrapper()
@@ -35,7 +36,8 @@ if __name__ == "__main__":
     logging.info("Connected to Elasticsearch")
 
     # Create an index with a dense_vector field
-    index_name = "documents_for_plagiarism"
+    index = IndexSettings()
+    index_name = index.INDEX_NAME
     index_status = es_con.create_index_if_not_exists(index_name)
     logging.info(index_status)
 
