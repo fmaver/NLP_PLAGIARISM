@@ -22,7 +22,3 @@ class TestZipExtractor(unittest.TestCase):
         files = self.zip_extractor.get_files()
         self.assertTrue(len(files) > 0)
         self.assertTrue(all([os.path.exists(file) for file in files]))
-
-    # def tearDown(self):
-    #     if os.path.exists(self.extract_path):
-    #         os.rmdir(self.extract_path)

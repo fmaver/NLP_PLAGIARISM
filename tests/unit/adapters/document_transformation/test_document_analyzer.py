@@ -5,8 +5,6 @@ This script will test the functionality of the DocumentAnalyzer class.
 import glob
 import os
 
-import pytest
-
 from plagiarism.adapters.document_converter import DocumentAnalyzer
 
 
@@ -22,4 +20,3 @@ def test_convert_files_to_txt():
     assert len(txt_files) == len(doc_files) - 1
     for txt_file in txt_files:
         assert os.path.exists(txt_file)
-        # os.remove(txt_file)
