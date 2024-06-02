@@ -1,5 +1,5 @@
 <div align="center" id="top"> 
-  <img src="./image.jpeg" alt="Plagiarism Detection Project" />
+    <img src="src/plagiarism.png" alt="Plagiarism Detection Project" />
 
   &#xa0;
 
@@ -9,14 +9,14 @@
 <h1 align="center">Plagiarism Detection Project</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/yourusername/plagiarism-detection?color=56BEB8">
+    <img alt="Github top language" src="https://img.shields.io/badge/Language-Python-blue">
 </p>
 
 <!-- Status -->
 
 <h4 align="center"> 
 	🚧 Plagiarism Detection Project 🚀 Under Construction 🚧<br><br>
-  Made by <a href="https://github.com/yourusername" target="_blank">Your Name</a>
+  Made by <a href="https://github.com/fmaver" target="_blank">Francisco Maver</a>
 </h4> 
 
 <hr>
