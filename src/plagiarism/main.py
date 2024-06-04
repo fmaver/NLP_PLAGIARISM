@@ -1,6 +1,8 @@
 """
 Applicant Main File.
 """
+import os
+
 from fastapi import FastAPI
 
 from plagiarism.asgi import get_application

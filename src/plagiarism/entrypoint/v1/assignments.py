@@ -10,7 +10,7 @@ from plagiarism.adapters.detector import NameDetector
 from plagiarism.adapters.document_converter import DocumentAnalyzer
 from plagiarism.adapters.elasticsearch_db import ElasticsearchConn
 from plagiarism.dependencies import TopicPredictorDependency
-from plagiarism.domain.events.assignments import AssignmentStored
+from plagiarism.domain.events.assignments import AssignmentStored, Plagiarism
 from plagiarism.service_layer.sentences_detector import SentencesPlagiarized
 from plagiarism.settings.elasticsearch_settings import ElasticsearchSettings
 from plagiarism.settings.index import IndexSettings
@@ -40,7 +40,7 @@ def search_plagiarism(
     sentences_plagiarized = SentencesPlagiarized()
 
     es_con = ElasticsearchConn(ElasticsearchSettings())
-    es = es_con.conn
+    # es = es_con.conn
     index = IndexSettings()
     index_name = index.INDEX_NAME
 
@@ -65,31 +65,27 @@ def search_plagiarism(
     logging.info("Searching for similar documents...")
     similar_docs = es_con.search_similar(index_name, content)
     logging.info("...Similar documents found")
-    plagiarized_sentences = []
+
+    plagiarism: list[Plagiarism] = []
+
     i = 0
     for doc in similar_docs:
         logging.info(f"Checking plagiarized sentences in document {i}...")
-        plagiarized_sentences = sentences_plagiarized.get_plagiarized_sentences(content, doc)
+        plagiarism.append(
+            Plagiarism(
+                plagiarized_filename=doc["_id"],
+                similar_sentences=sentences_plagiarized.get_plagiarized_sentences(content, doc),
+            )
+        )
         i += 1
 
     # Score
     logging.info("Calculating similarity score...")
-    score = [sentence.score for sentence in plagiarized_sentences]
-    score = sum(score) / len(score) if len(score) > 0 else 0.0
+    vector_score = []
+    for p in plagiarism:
+        score = [sentence.score for sentence in p.similar_sentences]
+        vector_score.append(sum(score) / len(score) if len(score) > 0 else 0.0)
 
-    # [SimilarSentences(submitted_sentence=sentence.submitted_sentence, plagiarised_sentence=sentence.plagiarised_sentence,]
-    similar_sentences = [sentence for sentence in plagiarized_sentences]
-    print(f"Similar Sentences: {similar_sentences}")
+    score = sum(vector_score) / len(vector_score) if len(vector_score) > 0 else 0.0
 
-    print(f"Author: {author}")
-    print(f"Name: {filename}")
-    print(f"Score: {score}")
-    print(f"Topic: {topic}")
-
-    return AssignmentStored(
-        author=author,
-        name=filename,
-        score=score,
-        topic=topic,
-        similar_sentences=similar_sentences,
-    )
+    return AssignmentStored(author=author, name=filename, score=score, topic=topic, plagiarism=plagiarism)

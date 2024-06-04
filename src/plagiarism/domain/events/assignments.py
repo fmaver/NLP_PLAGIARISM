@@ -17,12 +17,16 @@ class SimilarSentences(CamelCaseModel):
     plagiarised_author: str = Field(
         description="The author of the plagiarised sentence.",
     )
-    plagiarised_filename: str = Field(
-        description="The filename of the plagiarised sentence.",
-    )
     score: float = Field(
         description="The sentence's score for plagiarism.",
     )
+
+
+class Plagiarism(CamelCaseModel):
+    plagiarized_filename: str = Field(
+        description="The filename of the plagiarised sentence.",
+    )
+    similar_sentences: list[SimilarSentences]
 
 
 class AssignmentStored(CamelCaseModel):
@@ -45,4 +49,4 @@ class AssignmentStored(CamelCaseModel):
         description="The assignment's topic.",
         examples=["Sistemas Emergentes"],
     )
-    similar_sentences: list[SimilarSentences]
+    plagiarism: list[Plagiarism]

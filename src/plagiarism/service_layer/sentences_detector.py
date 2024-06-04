@@ -36,10 +36,9 @@ class SentencesPlagiarized:
         for sentence, plagiarized_sentence, similarity in plagiarized_sentences:
             similar_sentences.append(
                 SimilarSentences(
-                    submitted_sentence=sentence,
-                    plagiarised_sentence=plagiarized_sentence,
+                    submitted_sentence=sentence.replace("\n", ""),
+                    plagiarised_sentence=plagiarized_sentence.replace("\n", ""),
                     plagiarised_author=similar_doc["_source"]["student_name"],
-                    plagiarised_filename=similar_doc["_id"],
                     score=similarity,
                 )
             )
