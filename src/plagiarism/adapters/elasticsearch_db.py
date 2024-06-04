@@ -78,9 +78,20 @@ class ElasticsearchConn:
 
         for i, new_sentence_embedding in enumerate(new_sentences_embedding):
             for j, plagiarized_sentence_embedding in enumerate(plagiarized_sentences_embedding):
-                if "?" not in new_text_sentences[i] and "?" not in plagiarized_sentences[j]:
+                if (
+                    "?" not in new_text_sentences[i]
+                    and "?" not in plagiarized_sentences[j]
+                    and len(new_text_sentences[i]) > 10
+                    and len(plagiarized_sentences[j]) > 10
+                    and "capítulos" not in new_text_sentences[i]
+                    and "capítulos" not in plagiarized_sentences[j]
+                    and "explique" not in new_text_sentences[i]
+                    and "explique" not in plagiarized_sentences[j]
+                    and "ejemplo" not in new_text_sentences[i]
+                    and "brevemente" not in plagiarized_sentences[j]
+                ):
                     similarity = cosine_similarity([new_sentence_embedding], [plagiarized_sentence_embedding])[0][0]
-                    if similarity > 0.95:
+                    if similarity > 0.957:
                         plagiarized_sentences_result.append(
                             (new_text_sentences[i], plagiarized_sentences[j], similarity)
                         )
