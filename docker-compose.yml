@@ -30,6 +30,7 @@ services:
     environment:
       - ELASTICSEARCH_HOST=elasticsearch
       - ELASTICSEARCH_PORT=9200
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
     command: ["poetry", "run", "python","-m", "plagiarism.migrate"]
 
 
