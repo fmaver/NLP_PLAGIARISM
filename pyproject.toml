@@ -27,6 +27,8 @@ pandas = "^2.2.2"
 colorama = "^0.4.6"
 spacy = "^3.7.4"
 python-multipart = "^0.0.9"
+nltk = "^3.8.1"
+matplotlib = "^3.9.0"
 
 
 [tool.poetry.group.dev.dependencies]
