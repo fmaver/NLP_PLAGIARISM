@@ -108,3 +108,15 @@ This project is a plagiarism detection application built using Python 3. It leve
 
 ```bash
 curl -X POST "http://localhost:8000/upload" -F "file=@path_to_your_file"
+
+
+#### Resources
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [BERT](https://huggingface.co/transformers/model_doc/bert.html)
+- [BERT SPANISH](https://huggingface.co/dccuchile/bert-base-spanish-wwm-cased)
+- [TRANSFORMERS](https://towardsdatascience.com/plagiarism-detection-using-transformers-b9e7ed5c2a1f)
+- [SKLEARN](https://scikit-learn.org/stable/)
+- [PINECONE](https://www.pinecone.io/learn/plagiarism-detection/)
